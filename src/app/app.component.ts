@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RestaurantCardInterface } from './shared/interfaces';
+import { RatingPipe } from './shared/pipes/rating-pipe.pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, RatingPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -17,7 +18,7 @@ export class AppComponent {
       image: 'assets/images/McDonalds.png',
       categories: ['burger', 'chicken', 'fast food'],
       rating: 4.5,
-      reviews: 25,
+      reviews: 4,
       isFreeDelivery: true,
       timeZone: 1,
       isFavorite: true,
