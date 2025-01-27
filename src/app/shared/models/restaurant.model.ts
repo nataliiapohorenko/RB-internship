@@ -1,5 +1,7 @@
+import { CardTypeEnum } from './card-type.enum';
+
 export interface RestaurantInterface {
-  type: 'restaurant';
+  type: CardTypeEnum.Restaurant;
   id: number;
   title: string;
   image: string;

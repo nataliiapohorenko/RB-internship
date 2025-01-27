@@ -3,20 +3,21 @@ import { CommonModule } from '@angular/common';
 import { RestaurantInterface } from '../../models/restaurant.model';
 import { DishInterface } from '../../models/dish.model';
 import { RatingConverter } from '../../pipes/rating-pipe.pipe';
+import { CardTypeEnum } from '../../models/card-type.enum';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './primaryCard.component.html',
-  styleUrls: ['./primaryCard.component.scss'],
+  templateUrl: './primary-card.component.html',
   standalone: true,
   imports: [CommonModule, RatingConverter],
 })
 export class PrimaryCardComponent {
   @Input() data!: RestaurantInterface | DishInterface;
-
-  isRestaurant(
-    data: RestaurantInterface | DishInterface
-  ): data is RestaurantInterface {
-    return data.type === 'restaurant';
+  CardTypeEnum = CardTypeEnum;
+  get restaurantData(): RestaurantInterface {
+    return this.data as RestaurantInterface;
+  }
+  get dishData(): DishInterface {
+    return this.data as DishInterface;
   }
 }

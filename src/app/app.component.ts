@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RestaurantInterface } from './shared/models/restaurant.model';
 import { DishInterface } from './shared/models/dish.model';
-import { PrimaryCardComponent } from './shared/components/primaryCard/primaryCard.component';
-import { SecondaryCardComponent } from './shared/components/secondaryCard/secondaryCard.component';
+import { PrimaryCardComponent } from './shared/components/primaryCard/primary-card.component';
+import { SecondaryCardComponent } from './shared/components/secondaryCard/secondary-card.component';
+import { CardTypeEnum } from './shared/models/card-type.enum';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ import { SecondaryCardComponent } from './shared/components/secondaryCard/second
 export class AppComponent {
   cards: (RestaurantInterface | DishInterface)[] = [
     {
-      type: 'restaurant',
+      type: CardTypeEnum.Restaurant,
       id: 1,
       title: 'McDonald`s',
       image: 'assets/images/McDonalds.png',
@@ -34,7 +35,7 @@ export class AppComponent {
       isChecked: true,
     },
     {
-      type: 'restaurant',
+      type: CardTypeEnum.Restaurant,
       id: 2,
       title: 'Pizza Hut',
       image: 'assets/images/PizzaHut.png',
@@ -48,7 +49,7 @@ export class AppComponent {
       isChecked: false,
     },
     {
-      type: 'dish',
+      type: CardTypeEnum.Dish,
       id: 1,
       title: 'Bacon Burger',
       image: 'assets/images/dish1.png',
@@ -59,7 +60,7 @@ export class AppComponent {
       isFavorite: true,
     },
     {
-      type: 'dish',
+      type: CardTypeEnum.Dish,
       id: 2,
       title: 'Spaghetti Carbonara',
       image: 'assets/images/dish2.png',

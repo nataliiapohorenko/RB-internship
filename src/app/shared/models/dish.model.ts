@@ -1,5 +1,7 @@
+import { CardTypeEnum } from './card-type.enum';
+
 export interface DishInterface {
-  type: 'dish';
+  type: CardTypeEnum.Dish;
   id: number;
   title: string;
   image: string;
