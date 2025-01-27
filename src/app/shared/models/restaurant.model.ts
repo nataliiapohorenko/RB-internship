@@ -1,4 +1,5 @@
-export interface RestaurantCardInterface {
+export interface RestaurantInterface {
+  type: 'restaurant';
   id: number;
   title: string;
   image: string;
@@ -9,4 +10,5 @@ export interface RestaurantCardInterface {
   deliveryPrice?: number;
   timeZone: number;
   isFavorite: boolean;
+  isChecked: boolean;
 }

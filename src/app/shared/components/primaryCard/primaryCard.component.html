@@ -1,0 +1,85 @@
+<div
+  class="w-[266px] bg-white rounded-xl overflow-hidden shadow-lg relative"
+>
+
+  <div class="relative">
+    <img
+      class="w-full h-[136px] rounded-xl object-cover"
+      [src]="data.image"
+      [alt]="data.title"
+    />
+
+    <div
+      [ngClass]="{
+        'bg-white rounded-full px-2 py-1 shadow-md flex items-center shadow-orange-100': true,
+        'absolute top-2 left-2': isRestaurant(data),
+        'transformDishReview max-w-[70px]': !isRestaurant(data)
+      }"
+    >
+      <span class="text-xs font-semibold mr-1">
+        {{ data.rating }} 
+      </span>
+      <img src="assets/icons/star.svg" alt="stars">
+      <span class="ml-0.5 text-[8px] text-[#9796A1] " >
+        ({{data.reviews | RatingConverter}})
+      </span>
+    </div>
+
+    <div class="absolute top-2 right-2">
+      <button
+        [ngClass]="{
+          'w-[28px] h-[28px] flex justify-center items-center rounded-full shadow-md hover:bg-opacity-50 transition': true,
+          'bg-[#FE724C] ': data.isFavorite,
+          'bg-[rgba(255,255,255,0.2)] hover:bg-[#FE724C]': !data.isFavorite
+        }"
+      >
+        <img src="assets/icons/heart.svg" alt="like" class="opacity-100 transition">
+      </button>
+    </div>      
+  </div>
+
+  <ng-container *ngIf="isRestaurant(data)">
+    <div class="p-[11px]">
+      <div class="flex items-center mb-[8px]">
+        <h2 class="text-sm/[0.5rem] font-semibold text-gray-900 mr-1">
+          {{ data.title }}
+        </h2>
+        <ng-container *ngIf="isRestaurant(data) && data.isChecked">
+          <img src="assets/icons/check.svg" alt="checked">
+        </ng-container>
+      </div>
+      <div class="text-xs font-medium text-[#515154] mb-[8px] flex items-center">
+        <img src="assets/icons/deliveryMan.svg" alt="delivery man">
+        <span class="ml-1 mr-2">
+          {{ data.isFreeDelivery
+            ? 'free delivery'
+            : '$' + data.deliveryPrice + ' delivery' }}
+        </span>
+        <img src="assets/icons/clock.svg" alt="delivery man">
+        <span class="ml-1">
+          {{ data.timeZone * 10 }}-{{ data.timeZone * 15 }} mins</span>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <span
+          *ngFor="let categorie of data.categories"
+          class="text-[10px] text-[#515154] bg-gray-100 text-gray-700 p-[5px] rounded-lg font-medium"
+        >
+          {{ categorie | uppercase }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isRestaurant(data)">
+    <div class="pl-[11px] pb-3">
+      <h2 class="text-sm/[0.5rem] font-semibold text-gray-900 mr-1 mb-2">
+        {{ data.title }}
+      </h2>
+      <span class="absolute top-2 left-2 bg-white text-black text-sm font-bold px-2 py-1 rounded-full shadow">
+        <span class="text-xs text-[#FE724C]">$</span>{{ data.price }}
+      </span>
+      <p class="text-xs text-gray-500">{{ data.description }}</p>
+    </div>
+  </ng-container>
+  </div>

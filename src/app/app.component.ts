@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { RestaurantCardInterface } from './shared/interfaces';
-import { RatingPipe } from './shared/pipes/rating-pipe.pipe';
+import { RestaurantInterface } from './shared/models/restaurant.model';
+import { DishInterface } from './shared/models/dish.model';
+import { PrimaryCardComponent } from './shared/components/primaryCard/primaryCard.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, RatingPipe],
+  imports: [RouterOutlet, CommonModule, PrimaryCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  standalone: true,
 })
 export class AppComponent {
-  restaurantCards: RestaurantCardInterface[] = [
+  cards: (RestaurantInterface | DishInterface)[] = [
     {
+      type: 'restaurant',
       id: 1,
       title: 'McDonald`s',
       image: 'assets/images/McDonalds.png',
@@ -22,8 +25,10 @@ export class AppComponent {
       isFreeDelivery: true,
       timeZone: 1,
       isFavorite: true,
+      isChecked: true,
     },
     {
+      type: 'restaurant',
       id: 2,
       title: 'Pizza Hut',
       image: 'assets/images/PizzaHut.png',
@@ -33,6 +38,29 @@ export class AppComponent {
       isFreeDelivery: false,
       deliveryPrice: 5.9,
       timeZone: 2,
+      isFavorite: false,
+      isChecked: false,
+    },
+    {
+      type: 'dish',
+      id: 1,
+      title: 'Bacon Burger',
+      image: 'assets/images/dish1.png',
+      price: 8.9,
+      description: 'A classic fast food burger with bacon.',
+      rating: 4.8,
+      reviews: 10,
+      isFavorite: true,
+    },
+    {
+      type: 'dish',
+      id: 2,
+      title: 'Spaghetti Carbonara',
+      image: 'assets/images/dish2.png',
+      price: 12.9,
+      description: 'A classic pasta dish with tomatoes, basil, and garlic.',
+      rating: 4.9,
+      reviews: 80,
       isFavorite: false,
     },
   ];
