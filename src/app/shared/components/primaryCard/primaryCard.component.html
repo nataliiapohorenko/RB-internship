@@ -30,7 +30,7 @@
         [ngClass]="{
           'w-[28px] h-[28px] flex justify-center items-center rounded-full shadow-md hover:bg-opacity-50 transition': true,
           'bg-[#FE724C] ': data.isFavorite,
-          'bg-[rgba(255,255,255,0.2)] hover:bg-[#FE724C]': !data.isFavorite
+          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-[#FE724C]': !data.isFavorite
         }"
       >
         <img src="assets/icons/heart.svg" alt="like" class="opacity-100 transition">

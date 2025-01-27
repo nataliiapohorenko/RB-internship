@@ -1,0 +1,93 @@
+<div
+  class="w-[153px] bg-white rounded-xl overflow-hidden shadow-lg relative"
+>
+
+  <div class="relative">
+    <div class="absolute top-2 right-2 z-10">
+      <button
+        [ngClass]="{
+          'w-[28px] h-[28px] flex justify-center items-center rounded-full shadow-md hover:bg-opacity-50 transition': true,
+          'bg-[#FE724C] shadow-red-100': data.isFavorite,
+          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md hover:bg-[#FE724C]': !data.isFavorite
+        }"
+      >
+      <img
+        [src]="!data.isFavorite && isRestaurant(data) ? 'assets/icons/grey-heart.svg' : 'assets/icons/heart.svg'"
+        alt="like"
+        class="opacity-100 transition"
+      />
+      </button>
+    </div>      
+  </div>
+
+  <div class="p-4" *ngIf="isRestaurant(data)">
+    <div class="relative">
+      <img
+        class="w-[56px] h-[56px] rounded-xl object-cover"
+        [src]="data.image"
+        [alt]="data.title"
+      />
+      <div class="absolute -top-2 left-[45px] w-[18px] h-[18px] bg-yellow-400 rounded-md shadow-md shadow-orange-100 flex items-center justify-center">
+        <span class="text-[8px] text-white font-semibold">
+          {{ data.rating }} 
+        </span>
+      </div>
+    </div>
+    <div class="flex items-center mb-[8px] mt-5">
+      <h2 class="text-sm font-semibold text-gray-900 mr-1">
+        {{ data.title }}
+      </h2>
+      <ng-container *ngIf="isRestaurant(data) && data.isChecked">
+        <img src="assets/icons/check.svg" alt="checked">
+      </ng-container>
+    </div>
+    <div class="text-xs font-medium text-[#515154] mb-[8px] flex items-center">
+      <img src="assets/icons/deliveryMan.svg" alt="delivery man">
+      <span class="ml-1 mr-2">
+        {{ data.isFreeDelivery
+          ? 'free'
+          : '$' + data.deliveryPrice}}
+      </span>
+      <img src="assets/icons/clock.svg" alt="delivery man">
+      <span class="ml-1">
+        {{ data.timeZone * 10 }}-{{ data.timeZone * 15 }} mins</span>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <span
+        *ngFor="let categorie of data.categories"
+        class="text-[9px] text-[#515154] bg-gray-100 text-gray-700 p-[5px] rounded-lg font-medium"
+      >
+        {{ categorie | uppercase }}
+      </span>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isRestaurant(data)">
+    <div class="relative">
+      <img
+        class="w-100 h-[146px] rounded-xl object-cover"
+        [src]="data.image"
+        [alt]="data.title"
+      />
+      <div class="bg-white rounded-full px-2 py-1 shadow-md flex items-center shadow-orange-100 transformDishReview max-w-[70px]">
+        <span class="text-xs font-semibold mr-1">
+          {{ data.rating }} 
+        </span>
+        <img src="assets/icons/star.svg" alt="stars">
+        <span class="ml-0.5 text-[8px] text-[#9796A1] " >
+          ({{data.reviews | RatingConverter}})
+        </span>
+      </div>
+    </div>
+    <div class="p-2">
+      <h2 class="text-sm/1 font-semibold text-gray-900 mb-2">
+        {{ data.title }}
+      </h2>
+      <span class="absolute top-2 left-2 bg-white text-black text-sm font-bold px-2 py-1 rounded-full shadow">
+        <span class="text-xs text-[#FE724C]">$</span>{{ data.price }}
+      </span>
+      <p class="text-xs text-gray-500">{{ data.description }}</p>
+    </div>
+  </ng-container>
+  </div>

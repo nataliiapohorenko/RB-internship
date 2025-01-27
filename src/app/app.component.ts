@@ -4,10 +4,16 @@ import { RouterOutlet } from '@angular/router';
 import { RestaurantInterface } from './shared/models/restaurant.model';
 import { DishInterface } from './shared/models/dish.model';
 import { PrimaryCardComponent } from './shared/components/primaryCard/primaryCard.component';
+import { SecondaryCardComponent } from './shared/components/secondaryCard/secondaryCard.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, PrimaryCardComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    PrimaryCardComponent,
+    SecondaryCardComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
