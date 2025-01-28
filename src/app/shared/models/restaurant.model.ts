@@ -1,4 +1,7 @@
-export interface RestaurantCardInterface {
+import { CardTypeEnum } from './card-type.enum';
+
+export interface RestaurantInterface {
+  type: CardTypeEnum.Restaurant;
   id: number;
   title: string;
   image: string;
@@ -9,4 +12,5 @@ export interface RestaurantCardInterface {
   deliveryPrice?: number;
   timeZone: number;
   isFavorite: boolean;
+  isChecked: boolean;
 }

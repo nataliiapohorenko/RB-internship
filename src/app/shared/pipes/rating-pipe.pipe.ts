@@ -1,9 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'ratingPipe',
+  name: 'RatingConverter',
+  standalone: true,
 })
-export class RatingPipe implements PipeTransform {
+export class RatingConverter implements PipeTransform {
   transform(value: number): string {
     if (value < 25) {
       return value.toString();
