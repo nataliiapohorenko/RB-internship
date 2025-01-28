@@ -32,6 +32,7 @@
           'bg-[#FE724C] ': data.isFavorite,
           'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-[#FE724C]': !data.isFavorite
         }"
+        (click)="toggleFavorite()"
       >
         <img src="assets/icons/heart.svg" alt="like" class="opacity-100 transition">
       </button>
