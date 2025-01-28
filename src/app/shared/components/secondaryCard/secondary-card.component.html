@@ -9,6 +9,7 @@
           'bg-[#FE724C] shadow-red-100': data.isFavorite,
           'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md hover:bg-[#FE724C]': !data.isFavorite
         }"
+        (click)="toggleFavorite()"
       >
       <img
         [src]="!data.isFavorite && data.type === CardTypeEnum.Restaurant ? 'assets/icons/grey-heart.svg' : 'assets/icons/heart.svg'"
