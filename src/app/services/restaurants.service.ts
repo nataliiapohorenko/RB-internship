@@ -1,49 +1,34 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { RestaurantInterface } from '../shared/models/restaurant.model';
-import { CardTypeEnum } from '../shared/models/card-type.enum';
+import { environment } from '../../environments/environment';
+
+interface RestaurantsResponse {
+  success: boolean;
+  data: RestaurantInterface[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestaurantsService {
-  private restaurants: RestaurantInterface[] = [
-    {
-      type: CardTypeEnum.Restaurant,
-      id: 1,
-      title: 'McDonald`s',
-      image: 'assets/images/McDonalds.png',
-      categories: ['burger', 'chicken', 'fast food'],
-      rating: 4.5,
-      reviews: 4,
-      isFreeDelivery: true,
-      timeZone: 1,
-      isFavorite: true,
-      isChecked: true,
-    },
-    {
-      type: CardTypeEnum.Restaurant,
-      id: 2,
-      title: 'Pizza Hut',
-      image: 'assets/images/PizzaHut.png',
-      categories: ['pizza', 'italian'],
-      rating: 4.7,
-      reviews: 30,
-      isFreeDelivery: false,
-      deliveryPrice: 5.9,
-      timeZone: 2,
-      isFavorite: false,
-      isChecked: false,
-    },
-  ];
+  private restaurants: RestaurantInterface[] = [];
+  private restaurnantUrl = `${environment.apiUrl}/restaurants`;
 
-  getRestaurants(): RestaurantInterface[] {
-    return this.restaurants;
+  constructor(private http: HttpClient) {}
+
+  getRestaurants(): Observable<RestaurantsResponse> {
+    return this.http.get<RestaurantsResponse>(
+      this.restaurnantUrl + '/restaurants'
+    );
   }
 
-  addToFavorites(id: number): void {
-    const restaurant = this.restaurants.find(r => r.id === id);
-    if (restaurant) {
-      restaurant.isFavorite = !restaurant.isFavorite;
-    }
+  addToFavorites(id: string): void {
+    this.restaurants = this.restaurants.map(restaurant =>
+      restaurant._id === id
+        ? { ...restaurant, isFavourite: !restaurant.isFavourite }
+        : restaurant
+    );
   }
 }

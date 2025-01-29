@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantInterface } from '../../models/restaurant.model';
-import { DishInterface } from '../../models/dish.model';
+import { FoodItemInterface } from '../../models/food-item.model';
 import { RatingConverter } from '../../pipes/rating-pipe.pipe';
 import { CardTypeEnum } from '../../models/card-type.enum';
 
@@ -12,9 +12,9 @@ import { CardTypeEnum } from '../../models/card-type.enum';
   imports: [CommonModule, RatingConverter],
 })
 export class SecondaryCardComponent {
-  @Input() data!: RestaurantInterface | DishInterface;
+  @Input() data!: RestaurantInterface | FoodItemInterface;
   @Output() favoriteToggled = new EventEmitter<{
-    id: number;
+    id: string;
     type: CardTypeEnum;
   }>();
   CardTypeEnum = CardTypeEnum;
@@ -22,8 +22,8 @@ export class SecondaryCardComponent {
   get restaurantData(): RestaurantInterface {
     return this.data as RestaurantInterface;
   }
-  get dishData(): DishInterface {
-    return this.data as DishInterface;
+  get foodItemData(): FoodItemInterface {
+    return this.data as FoodItemInterface;
   }
 
   toggleFavorite(): void {
