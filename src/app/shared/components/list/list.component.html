@@ -1,0 +1,8 @@
+<div class="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" *ngIf="restaurants.length > 0 || foodItems.length > 0; else empty">
+  <app-card *ngFor="let restaurant of restaurants" [data]="restaurant" (favoriteToggled)="toggleFavorite($event.id, $event.type)"></app-card>
+  <app-card *ngFor="let foodItem of foodItems" [data]="foodItem" (favoriteToggled)="toggleFavorite($event.id, $event.type)"></app-card>
+</div>
+
+<ng-template #empty>
+  <p>no items yet</p>
+</ng-template>
