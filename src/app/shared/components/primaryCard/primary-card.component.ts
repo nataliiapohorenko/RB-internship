@@ -13,7 +13,7 @@ import { CardTypeEnum } from '../../models/card-type.enum';
 })
 export class PrimaryCardComponent {
   @Input() data!: RestaurantInterface | FoodItemInterface;
-  @Output() favoriteToggled = new EventEmitter<{
+  @Output() favouriteToggled = new EventEmitter<{
     id: string;
     type: CardTypeEnum;
   }>();
@@ -26,7 +26,7 @@ export class PrimaryCardComponent {
     return this.data as FoodItemInterface;
   }
 
-  toggleFavorite(): void {
-    this.favoriteToggled.emit({ id: this.data._id, type: this.data.type });
+  toggleFavourite(): void {
+    this.favouriteToggled.emit({ id: this.data._id, type: this.data.type });
   }
 }
