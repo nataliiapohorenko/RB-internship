@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { RestaurantInterface } from '../shared/models/restaurant.model';
 import { environment } from '../../environments/environment';
-
-interface RestaurantsResponse {
-  success: boolean;
-  data: RestaurantInterface[];
-}
+import { CardTypeEnum } from '../shared/models/card-type.enum';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RestaurantsService {
-  private restaurants: RestaurantInterface[] = [];
-  private restaurnantUrl = `${environment.apiUrl}/restaurants`;
+export class RestaurantsService extends BaseService<RestaurantInterface> {
+  constructor(http: HttpClient) {
+    super(http, `${environment.apiUrl}/restaurants`);
+  }
 
-  constructor(private http: HttpClient) {}
-
-  getRestaurants(): Observable<RestaurantsResponse> {
-    return this.http.get<RestaurantsResponse>(
-      this.restaurnantUrl + '/restaurants'
+  override getItems(): Observable<RestaurantInterface[]> {
+    return super.getItems().pipe(
+      map(response =>
+        response.map(
+          restaurant =>
+            ({
+              ...restaurant,
+              type: CardTypeEnum.Restaurant,
+            }) as RestaurantInterface
+        )
+      ),
+      tap(restaurants => this.itemsSubject.next(restaurants))
     );
   }
 
-  addToFavorites(id: string): void {
-    this.restaurants = this.restaurants.map(restaurant =>
-      restaurant._id === id
-        ? { ...restaurant, isFavourite: !restaurant.isFavourite }
-        : restaurant
-    );
+  override toggleFavorite(id: string): void {
+    super.toggleFavorite(id);
   }
 }

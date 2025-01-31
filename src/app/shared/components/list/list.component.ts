@@ -5,17 +5,19 @@ import { FoodItemsService } from '../../../services/food-items.service';
 import { RestaurantInterface } from '../../models/restaurant.model';
 import { FoodItemInterface } from '../../models/food-item.model';
 import { PrimaryCardComponent } from '../primaryCard/primary-card.component';
+import { SecondaryCardComponent } from '../secondaryCard/secondary-card.component';
 import { CardTypeEnum } from '../../models/card-type.enum';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
-  imports: [PrimaryCardComponent, CommonModule],
+  imports: [PrimaryCardComponent, SecondaryCardComponent, CommonModule],
   templateUrl: './list.component.html',
   standalone: true,
 })
 export class ListComponent implements OnInit {
-  restaurants: RestaurantInterface[] = [];
-  foodItems: FoodItemInterface[] = [];
+  restaurants$!: Observable<RestaurantInterface[]>;
+  foodItems$!: Observable<FoodItemInterface[]>;
 
   constructor(
     private restaurantsService: RestaurantsService,
@@ -23,39 +25,20 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.restaurantsService.getRestaurants().subscribe({
-      next: response => {
-        this.restaurants = response.data.map(restaurant => ({
-          ...restaurant,
-          type: CardTypeEnum.Restaurant,
-        }));
-      },
-      error: err => {
-        console.error('Error fetching restaurants:', err);
-      },
-    });
+    this.restaurants$ = this.restaurantsService.items$;
+    this.foodItems$ = this.foodItemsService.items$;
 
-    this.foodItemsService.getFoodItems().subscribe({
-      next: response => {
-        this.foodItems = response.data.map(foodItem => ({
-          ...foodItem,
-          type: CardTypeEnum.FoodItem,
-        }));
-      },
-      error: err => {
-        console.error('Error fetching food items:', err);
-      },
-    });
+    this.restaurantsService.getItems().subscribe();
+    this.foodItemsService.getItems().subscribe();
   }
 
-  toggleFavorite(id: string, type: CardTypeEnum): void {
-    console.log(type, id);
+  toggleFavourite(id: string, type: CardTypeEnum): void {
     switch (type) {
       case CardTypeEnum.Restaurant:
-        this.restaurantsService.addToFavorites(id);
+        this.restaurantsService.toggleFavorite(id);
         break;
       case CardTypeEnum.FoodItem:
-        this.foodItemsService.addToFavorites(id);
+        this.foodItemsService.toggleFavorite(id);
         break;
     }
   }
