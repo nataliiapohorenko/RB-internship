@@ -6,13 +6,13 @@
       <button
         [ngClass]="{
           'w-[28px] h-[28px] flex justify-center items-center rounded-full shadow-md hover:bg-opacity-50 transition': true,
-          'bg-[#FE724C] shadow-red-100': data.isFavourite,
-          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md hover:bg-[#FE724C]': !data.isFavourite
+          'bg-primary shadow-red-100': data.isFavourite,
+          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md hover:bg-primary': !data.isFavourite
         }"
         (click)="toggleFavourite()"
       >
       <img
-        [src]="!data.isFavourite && data.type === CardTypeEnum.Restaurant ? 'assets/icons/grey-heart.svg' : 'assets/icons/heart.svg'"
+        [src]="!data.isFavourite ? 'assets/icons/grey-heart.svg' : 'assets/icons/heart.svg'"
         alt="like"
         class="opacity-100 transition"
       />
@@ -88,9 +88,11 @@
           {{ data.name }}
         </h2>
         <span class="absolute top-2 left-2 bg-white text-black text-sm font-bold px-2 py-1 rounded-full shadow">
-          <span class="text-xs text-[#FE724C]">$</span>{{ foodItemData.price }}
+          <span class="text-xs text-primary">$</span>{{ foodItemData.price }}
         </span>
-        <p class="text-xs text-gray-500">{{ foodItemData.description }}</p>
+        <p class="text-xs text-gray-500 w-[20ch] whitespace-nowrap overflow-hidden text-ellipsis">
+          {{ foodItemData.description }}
+        </p>
       </div>
     </ng-container>
   </ng-container>

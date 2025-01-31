@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -8,13 +9,10 @@ interface BaseEntity {
 }
 
 export abstract class BaseService<T extends BaseEntity> {
+  protected http = inject(HttpClient);
+  protected abstract apiUrl: string;
   protected itemsSubject: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
   items$ = this.itemsSubject.asObservable();
-
-  constructor(
-    protected http: HttpClient,
-    private apiUrl: string
-  ) {}
 
   getItems(): Observable<T[]> {
     return this.http
