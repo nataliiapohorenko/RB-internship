@@ -29,8 +29,8 @@
       <button
         [ngClass]="{
           'w-[28px] h-[28px] flex justify-center items-center rounded-full shadow-md hover:bg-opacity-50 transition': true,
-          'bg-[#FE724C] ': data.isFavourite,
-          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-[#FE724C]': !data.isFavourite
+          'bg-primary ': data.isFavourite,
+          'bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-primary': !data.isFavourite
         }"
         (click)="toggleFavourite()"
       >
@@ -81,7 +81,7 @@
       <span
         class="absolute top-2 left-2 bg-white text-black text-sm font-bold px-2 py-1 rounded-full shadow"
       >
-        <span class="text-xs text-[#FE724C]">$</span>{{ foodItemData.price }}
+        <span class="text-xs text-primary">$</span>{{ foodItemData.price }}
       </span>
       <p class="text-xs text-gray-500">{{ foodItemData.description }}</p>
     </div>

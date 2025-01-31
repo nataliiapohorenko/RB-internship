@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { RestaurantInterface } from '../shared/models/restaurant.model';
@@ -11,9 +10,7 @@ import { BaseService } from './base.service';
   providedIn: 'root',
 })
 export class RestaurantsService extends BaseService<RestaurantInterface> {
-  constructor(http: HttpClient) {
-    super(http, `${environment.apiUrl}/restaurants`);
-  }
+  protected apiUrl = `${environment.apiUrl}/restaurants`;
 
   override getItems(): Observable<RestaurantInterface[]> {
     return super.getItems().pipe(
@@ -28,9 +25,5 @@ export class RestaurantsService extends BaseService<RestaurantInterface> {
       ),
       tap(restaurants => this.itemsSubject.next(restaurants))
     );
-  }
-
-  override toggleFavorite(id: string): void {
-    super.toggleFavorite(id);
   }
 }
