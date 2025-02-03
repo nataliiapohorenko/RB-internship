@@ -17,6 +17,10 @@ export class SecondaryCardComponent {
     id: string;
     type: CardTypeEnum;
   }>();
+  @Output() goToDetails = new EventEmitter<{
+    id: string;
+    type: CardTypeEnum;
+  }>();
   CardTypeEnum = CardTypeEnum;
 
   get restaurantData(): RestaurantInterface {
@@ -28,5 +32,8 @@ export class SecondaryCardComponent {
 
   toggleFavourite(): void {
     this.favouriteToggled.emit({ id: this.data._id, type: this.data.type });
+  }
+  selectItem(): void {
+    this.goToDetails.emit({ id: this.data._id, type: this.data.type });
   }
 }
