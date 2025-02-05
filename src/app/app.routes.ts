@@ -4,6 +4,7 @@ import { FoodItemResolver } from './resolvers/food-item.resolver';
 import { FoodItemDetailsComponent } from './pages/food-item-details/food-item-details.component';
 import { RestaurantResolver } from './resolvers/restaurant.resolver';
 import { RestaurantDetailsComponent } from './pages/restaurant-details/restaurant-details.component';
+import { RestaurantGuard } from './guards/restaurant.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   {
     path: 'restaurants/:id',
     component: RestaurantDetailsComponent,
+    canActivate: [RestaurantGuard],
     resolve: { restaurant: RestaurantResolver },
   },
   {
