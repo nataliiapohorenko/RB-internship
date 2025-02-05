@@ -1,4 +1,5 @@
 import { CardTypeEnum } from './card-type.enum';
+import { FoodItemInterface } from './food-item.model';
 
 export interface RestaurantInterface {
   type: CardTypeEnum.Restaurant;
@@ -14,4 +15,13 @@ export interface RestaurantInterface {
   feedbacks: number;
   isFavourite: boolean;
   verified: boolean;
+}
+
+export interface RestaurantDetailsInterface extends RestaurantInterface {
+  foodItems: FoodItemInterface[];
+}
+
+export interface RestaurantDetailsResponseInterface {
+  restaurant: RestaurantInterface;
+  foodItems: FoodItemInterface[];
 }

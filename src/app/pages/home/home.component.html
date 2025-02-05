@@ -25,7 +25,9 @@
     >
       <app-card class="mb-4" *ngFor="let restaurant of restaurants"
         [data]="restaurant"
-        (favouriteToggled)="toggleFavourite($event.id, $event.type)">
+        (favouriteToggled)="toggleFavourite($event.id, $event.type)"
+        (goToDetails)="goToDetails($event.id, $event.type)"
+        >
       </app-card>
     </div>
   </div>
@@ -37,7 +39,9 @@
     >
       <app-secondary-card class="mb-4" *ngFor="let foodItem of foodItems"
         [data]="foodItem"
-        (favouriteToggled)="toggleFavourite($event.id, $event.type)">
+        (favouriteToggled)="toggleFavourite($event.id, $event.type)"
+        (goToDetails)="goToDetails($event.id, $event.type)"
+        >
       </app-secondary-card>
     </div>
   </div>

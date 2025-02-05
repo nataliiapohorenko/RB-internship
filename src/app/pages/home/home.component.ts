@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { RestaurantsService } from '../../services/restaurants.service';
 import { FoodItemsService } from '../../services/food-items.service';
 import { RestaurantInterface } from '../../shared/models/restaurant.model';
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private restaurantsService: RestaurantsService,
-    private foodItemsService: FoodItemsService
+    private foodItemsService: FoodItemsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,17 @@ export class HomeComponent implements OnInit {
         break;
       case CardTypeEnum.FoodItem:
         this.foodItemsService.toggleFavorite(id);
+        break;
+    }
+  }
+
+  goToDetails(id: string, type: CardTypeEnum): void {
+    switch (type) {
+      case CardTypeEnum.Restaurant:
+        this.router.navigate(['/restaurants', id]);
+        break;
+      case CardTypeEnum.FoodItem:
+        this.router.navigate(['/food-items', id]);
         break;
     }
   }

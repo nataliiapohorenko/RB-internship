@@ -10,7 +10,7 @@ import { BaseService } from './base.service';
   providedIn: 'root',
 })
 export class FoodItemsService extends BaseService<FoodItemInterface> {
-  protected apiUrl = `${environment.apiUrl}/restaurants/food-items`;
+  protected apiUrl = `${environment.apiUrl}/food-items`;
 
   override getItems(): Observable<FoodItemInterface[]> {
     return super.getItems().pipe(
@@ -27,5 +27,9 @@ export class FoodItemsService extends BaseService<FoodItemInterface> {
       ),
       tap(foodItems => this.itemsSubject.next(foodItems))
     );
+  }
+
+  getItemById(id: string): Observable<FoodItemInterface> {
+    return this.http.get<FoodItemInterface>(`${this.apiUrl}/${id}`);
   }
 }

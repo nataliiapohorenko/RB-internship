@@ -17,6 +17,10 @@ export class PrimaryCardComponent {
     id: string;
     type: CardTypeEnum;
   }>();
+  @Output() goToDetails = new EventEmitter<{
+    id: string;
+    type: CardTypeEnum;
+  }>();
   CardTypeEnum = CardTypeEnum;
 
   get restaurantData(): RestaurantInterface {
@@ -26,7 +30,12 @@ export class PrimaryCardComponent {
     return this.data as FoodItemInterface;
   }
 
-  toggleFavourite(): void {
+  toggleFavourite(event: Event): void {
+    event.stopPropagation();
     this.favouriteToggled.emit({ id: this.data._id, type: this.data.type });
+  }
+
+  selectItem(): void {
+    this.goToDetails.emit({ id: this.data._id, type: this.data.type });
   }
 }

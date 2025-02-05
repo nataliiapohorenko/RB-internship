@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { RestaurantInterface } from '../shared/models/restaurant.model';
+import {
+  RestaurantInterface,
+  RestaurantDetailsInterface,
+  RestaurantDetailsResponseInterface,
+} from '../shared/models/restaurant.model';
+import { FoodItemInterface } from '../shared/models/food-item.model';
 import { environment } from '../../environments/environment';
 import { CardTypeEnum } from '../shared/models/card-type.enum';
 import { BaseService } from './base.service';
@@ -25,5 +30,26 @@ export class RestaurantsService extends BaseService<RestaurantInterface> {
       ),
       tap(restaurants => this.itemsSubject.next(restaurants))
     );
+  }
+
+  getItemById(id: string): Observable<RestaurantDetailsInterface> {
+    return this.http
+      .get<RestaurantDetailsResponseInterface>(`${this.apiUrl}/${id}`)
+      .pipe(
+        map(
+          response =>
+            ({
+              ...response.restaurant,
+              foodItems: response.foodItems.map(
+                foodItem =>
+                  ({
+                    ...foodItem,
+                    type: CardTypeEnum.FoodItem,
+                  }) as FoodItemInterface
+              ),
+              type: CardTypeEnum.Restaurant,
+            }) as RestaurantDetailsInterface
+        )
+      );
   }
 }
