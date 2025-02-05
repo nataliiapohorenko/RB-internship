@@ -5,20 +5,23 @@ import { FoodItemDetailsComponent } from './pages/food-item-details/food-item-de
 import { RestaurantResolver } from './resolvers/restaurant.resolver';
 import { RestaurantDetailsComponent } from './pages/restaurant-details/restaurant-details.component';
 import { RestaurantGuard } from './guards/restaurant.guard';
+import { FoodItemGuard } from './guards/food-item.guard';
+import { RoutingConstants } from './constants/routes.constants';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: RoutingConstants.HOME, pathMatch: 'full' },
+  { path: RoutingConstants.HOME, component: HomeComponent },
   {
-    path: 'restaurants/:id',
+    path: `${RoutingConstants.RESTAURANTS}/:${RoutingConstants.ID}`,
     component: RestaurantDetailsComponent,
     canActivate: [RestaurantGuard],
     resolve: { restaurant: RestaurantResolver },
   },
   {
-    path: 'food-items/:id',
+    path: `${RoutingConstants.FOOD_ITEMS}/:${RoutingConstants.ID}`,
     component: FoodItemDetailsComponent,
+    canActivate: [FoodItemGuard],
     resolve: { foodItem: FoodItemResolver },
   },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: RoutingConstants.HOME },
 ];
