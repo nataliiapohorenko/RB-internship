@@ -10,12 +10,13 @@ import { FoodItemInterface } from '../shared/models/food-item.model';
 import { environment } from '../../environments/environment';
 import { CardTypeEnum } from '../shared/models/card-type.enum';
 import { BaseService } from './base.service';
+import { RoutingConstants } from '../constants/routes.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestaurantsService extends BaseService<RestaurantInterface> {
-  protected apiUrl = `${environment.apiUrl}/restaurants`;
+  protected apiUrl = `${environment.apiUrl}/${RoutingConstants.RESTAURANTS}`;
   protected restaurantDetailsSubject: BehaviorSubject<RestaurantDetailsInterface> =
     new BehaviorSubject<RestaurantDetailsInterface>(
       {} as RestaurantDetailsInterface
