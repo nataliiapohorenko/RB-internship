@@ -80,20 +80,22 @@
     </div>
   </form>
 
-  <button *ngIf="action==='Login'" class="text-sm text-primary mx-auto mt-6">
-    Forgot password?
-  </button>
+  <div class="flex justify-center">
+    <button *ngIf="action==='Login'" class="text-sm text-primary mt-6">
+      Forgot password?
+    </button>
+  </div>
 
   <div class="text-center mt-6">
     <span *ngIf="action==='Sign Up'" class="text-darkGray text-sm">
       Already have an account?
-      <button class="text-primary hover:text-primary-dark">
+      <button [routerLink]="['/', RoutingConstants.LOGIN]" class="text-primary hover:text-primary-dark">
         Login
       </button>
     </span>
     <span *ngIf="action==='Login'" class="text-darkGray text-sm">
       Don`t have an account?
-      <button class="text-primary hover:text-primary-dark">
+      <button [routerLink]="['/', RoutingConstants.SIGNUP]" class="text-primary hover:text-primary-dark">
         Sign Up
       </button>
     </span>

@@ -17,17 +17,21 @@ import {
   uppercaseValidator,
   specialCharValidator,
 } from '../../../validators/auth-validation';
+import { RouterLink } from '@angular/router';
+import { RoutingConstants } from '../../../constants/routes.constants';
 
 @Component({
   selector: 'auth-form',
   templateUrl: './auth-form.component.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ValidationError],
+  imports: [CommonModule, ReactiveFormsModule, ValidationError, RouterLink],
 })
 export class AuthComponent implements OnInit {
   @Input() action!: string;
   @Input() isNameRequired!: boolean;
   @Output() sendForm = new EventEmitter<AuthFormInterface>();
+
+  RoutingConstants = RoutingConstants;
   private fb: FormBuilder = inject(FormBuilder);
 
   registerForm = this.fb.group({
